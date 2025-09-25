@@ -1,0 +1,78 @@
+{
+  "baseURL": "",
+  "relativeURLs": true,
+  "canonifyURLs": false,
+  "languageCode": "en-us",
+  "title": "ribas89",
+  "theme": "hugo-theme-m10c",
+  "assetDir": "assets",
+  "pagination": {
+    "pagerSize": 8
+  },
+  "cleanDestinationDir": true,
+  "Params": {
+    "author": "ribs",
+    "subtitle": "weblog",
+    "cover_dimming_class": "bg-transparent",
+    "featured_image_class": "cover bg-center",
+    "avatar": "/images/ribs-big-green.webp",
+    "background": "images/header1903-1268.webp",
+    "description": "A sailor's logbook through the ocean of bytes and bugs",
+    "social": [
+      {
+        "icon": "brand-forgejo",
+        "name": "Forgejo",
+        "url": "https://git.ribas89.co.uk/ribs"
+      },
+      {
+        "icon": "brand-linkedin",
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ribas89/"
+      },
+      {
+        "icon": "brand-kofi",
+        "name": "Ko-fi",
+        "url": "https://ko-fi.com/ribas89"
+      },
+      {
+        "icon": "brand-immich",
+        "name": "Immich",
+        "url": "https://pic.ribas89.co.uk/s/art"
+      },
+      {
+        "icon": "mail",
+        "name": "Email",
+        "url": "mailto:contact@ribas89.co.uk"
+      }
+    ]
+  },
+  "menu": {
+    "main": [
+      {
+        "identifier": "home",
+        "name": "Home",
+        "url": "/",
+        "weight": 1,
+        "params": {
+          "target": "_self"
+        }
+      },
+      {
+        "identifier": "profile",
+        "name": "Profile",
+        "url": "https://profile.ribas89.co.uk",
+        "weight": 1,
+        "params": {
+          "target": "_blank"
+        }
+      }
+    ]
+  },
+  "markup": {
+    "goldmark": {
+      "renderer": {
+        "unsafe": true
+      }
+    }
+  }
+}
