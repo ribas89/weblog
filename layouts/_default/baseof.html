@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+  <head>
+    <title>
+      {{ if .IsHome }}
+        {{ .Site.Title }} {{ .Site.Params.subtitle }}
+      {{ else }}
+        {{ .Site.Title }} {{ .Site.Params.subtitle }} - {{ .Title }}
+      {{ end }}
+    </title>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="ribas89" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta charset="utf-8" />
+    {{ hugo.Generator }}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="{{ .Site.Params.author | default "John Doe" }}" />
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
+    
+    <script data-isso="//weblog.ribas89.co.uk/comments" data-isso-css="false" data-isso-vote="false" data-isso-avatar="false" src="https://weblog.ribas89.co.uk/comments/js/embed.min.js"></script>
+    {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | css.Sass | resources.Minify | resources.Fingerprint -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
+    {{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+    {{ end }}
+
+    {{ template "_internal/twitter_cards.html" . }}
+    {{ template "_internal/opengraph.html" . }}
+
+{{ $script := resources.Get "js/general.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
+
+  </head>
+{{ $depth := sub (len (split .RelPermalink "/")) 2 }}
+{{ $up := strings.Repeat $depth "../" }}
+{{ $background := printf "%s%s" $up .Site.Params.background }}
+  <body style="background-image: url('{{ $background }}')">
+    <div id="main">
+    <header class="app-header">
+      <span class="app-header-title">{{ .Site.Title }}</span>
+      <a href="{{ "" | relURL }}"><img class="app-header-avatar" src="{{ .Site.Params.avatar | relURL}}" alt="{{ .Site.Params.author | default "John Doe" }}" /></a>
+      <span class="app-header-title">{{ .Site.Params.subtitle }}</span>
+      {{- with .Site.Menus.main }}
+      <nav class="app-header-menu">
+        {{- range $key, $item := . }}
+          {{- if ne $key 0 }}
+            {{ $.Site.Params.menu_item_separator | default " - " | safeHTML }}
+          {{ end }}
+          <a class="app-header-menu-item" href="{{ $item.URL }}" target="{{ $item.Params.target }}">{{ $item.Name }}</a>
+        {{- end }}
+      </nav>
+      {{- end }}
+      <p class="app-header-description">{{ .Site.Params.description | default "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium." }}</p>
+      {{- with .Site.Params.social }}
+      <div class="app-header-social">
+        {{ range . }}
+          <a href="{{ .url }}" target="_blank" rel="noreferrer noopener me">
+            {{ partial "icon.html" (dict "ctx" $ "name" .icon "title" .name) }}
+          </a>
+        {{ end }}
+      </div>
+      {{- end }}
+      <div class="app-header-footer">
+        <p class="app-header-build">build {{ now | time.Format "2006-01-02 15:04:05" }}</p>
+        <button onclick="scrollToTop(event)" class="app-header-back-to-top">{{ partial "icon.html" (dict "ctx" . "name" "chevron-up" "title" "Back to top") }}back to top</button>
+      </div>
+    </header>
+    <main class="app-container">
+      {{ block "main" . }}
+        {{ .Content }}
+      {{ end }}
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "config": {
+    "reply-to-self": true,
+    "require-email": false,
+    "require-author": true,
+    "reply-notifications": false,
+    "gravatar": false,
+    "feed": false,
+    "css": false,
+    "vote": false,
+    "avatar": false
+  }
+}
