@@ -3,9 +3,8 @@ let lastTop = 0;
 
 function scrollToTop(e) {
   e.stopPropagation();
-  document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
+  document.querySelector("main").scrollIntoView({ behavior: "smooth" });
 }
-
 
 function updateHeaderTop() {
   const header = document.querySelector(".app-header");
@@ -59,10 +58,27 @@ window.addEventListener("scroll", () => {
     return;
   }
 
-
   backToTop.style.opacity = "1.0";
   clearTimeout(hideTimer);
   hideTimer = setTimeout(() => {
     header.classList.add("hidden");
   }, 1000);
 });
+
+// var remark_config = {
+//   host: "https://comment.ribas89.co.uk",
+//   site_id: "weblog",
+//   components: ["embed", "last-comments"],
+//   theme: "dark",
+//   show_rss_subscription: "false",
+//   no_footer: "false",
+// };
+
+// !(function (e, n) {
+//   for (var o = 0; o < e.length; o++) {
+//     var r = n.createElement("script"),
+//       c = ".js",
+//       d = n.head || n.body;
+//     "noModule" in r ? ((r.type = "module"), (c = ".mjs")) : (r.async = !0), (r.defer = !0), (r.src = remark_config.host + "/web/" + e[o] + c), d.appendChild(r);
+//   }
+// })(remark_config.components, document);

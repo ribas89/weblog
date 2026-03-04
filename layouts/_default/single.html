@@ -4,19 +4,12 @@
     <h1 class="post-title">{{ .Title }}</h1>
     {{- if ne .Type "page" }}
     <div class="post-meta">
-    {{ if gt .PublishDate.Unix 0 }}
-        <div>
-          {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }} {{ .PublishDate.Format "Jan 2, 2006" }}
-        </div>
-        <div>
-          {{ partial "icon.html" (dict "ctx" $ "name" "clock") }} {{ .ReadingTime
-          }} min read
-        </div>
-      {{ end }}
-      {{- with .Params.tags }}
+      {{ if gt .PublishDate.Unix 0 }}
+      <div>{{ partial "icon.html" (dict "ctx" $ "name" "calendar") }} {{ .PublishDate.Format "Jan 2, 2006" }}</div>
+      <div>{{ partial "icon.html" (dict "ctx" $ "name" "clock") }} {{ .ReadingTime }} min read</div>
+      {{ end }} {{- with .Params.tags }}
       <div>
-        {{ partial "icon.html" (dict "ctx" $ "name" "tag") }} {{- range . -}} {{
-        with $.Site.GetPage (printf "/%s/%s" "tags" . ) }}
+        {{ partial "icon.html" (dict "ctx" $ "name" "tag") }} {{- range . -}} {{ with $.Site.GetPage (printf "/%s/%s" "tags" . ) }}
         <a class="tag" href="{{ .RelPermalink }}">{{ .Title }}</a>
         {{- end }} {{- end }}
       </div>
@@ -24,7 +17,14 @@
     </div>
     {{- end }}
   </header>
+  <hr />
   <div class="post-content">{{ .Content }}</div>
-  <div class="post-footer">{{ template "_internal/disqus.html" . }}</div>
+  <div class="post-footer">
+    <!-- <div id="remark42"></div>
+    <div class="remark42__last-comments" data-max="50"></div> -->
+    <div id="isso-thread" data-isso-id="{{ .RelPermalink }}" data-title="{{ .Title }}">
+      <noscript>Javascript needs to be activated to view comments.</noscript>
+    </div>
+  </div>
 </article>
 {{ end }}

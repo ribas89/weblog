@@ -6,9 +6,8 @@
   <div class="post-content">{{- . -}}</div>
   {{- end }}
   <hr />
-  <h2>Blog posts</h2>
- {{ $paginator := .Paginate (where .Site.RegularPages "Params.categories" "intersect" (slice "posts")) }}
- {{ range $paginator.Pages }}
+  {{ $paginator := .Paginate (where .Site.RegularPages "Params.categories"
+  "intersect" (slice "posts")) }} {{ range $paginator.Pages }}
   <li class="posts-list-item">
     <h3>
       <a class="posts-list-item-title" href="{{ .RelPermalink }}"

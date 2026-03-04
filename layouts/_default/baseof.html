@@ -8,12 +8,19 @@
         {{ .Site.Title }} - {{ .Title }}
       {{ end }}
     </title>
-    <link rel="shortcut icon" href="{{ .Site.Params.favicon | default "/favicon.ico" }}" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="ribas89" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta charset="utf-8" />
     {{ hugo.Generator }}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="{{ .Site.Params.author | default "John Doe" }}" />
     <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Description }}{{ end }}" />
+    {{ $script := resources.Get "js/isso.js" | resources.Fingerprint }}
+    <script data-isso="//isso.ribas89.co.uk/" data-isso-css="false" data-isso-vote="false" data-isso-avatar="false" src="{{ $script.RelPermalink }}"></script>
     {{ $style := resources.Get "css/main.scss" | resources.ExecuteAsTemplate "css/main.scss" . | css.Sass | resources.Minify | resources.Fingerprint -}}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" />
     {{ with .OutputFormats.Get "rss" -}}
