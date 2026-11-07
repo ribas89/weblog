@@ -1,6 +1,11 @@
+{{- $src := .Destination -}}
+{{- with .PageInner.Resources.Get .Destination -}}
+  {{- $src = .RelPermalink -}}
+{{- end -}}
+
 <figure>
-  <a href="{{ .Destination | safeURL }}" target="_blank" rel="noopener noreferrer">
-    <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}" title="{{ .Text }}" aria-label="{{ .Text }}">
+  <a href="{{ $src | safeURL }}" target="_blank" rel="noopener noreferrer">
+    <img src="{{ $src | safeURL }}" alt="{{ .Text }}" title="{{ .Text }}" aria-label="{{ .Text }}">
   </a>
   <figcaption>{{ .Text }}</figcaption>
 </figure>
